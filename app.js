@@ -9,7 +9,4 @@ canvas.width = 19 * gridSize
 levelLabel = document.getElementById("levelLabel")
 
 //Setup Game Variables
-level = 7
-points = 0
-
-startGame()
+level = 1

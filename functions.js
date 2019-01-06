@@ -2,8 +2,8 @@ function startGame() {
   //Remove Start Button
   document.querySelector("h1").parentNode.removeChild(document.querySelector("h1"))
 
-  //Add Keyboard Input
-  document.addEventListener("keydown", handleInput)
+  //Add Inputs
+  document.addEventListener("keydown", handleKeyboardInput)
 
   //Add Sprites
   loadLevel()
@@ -42,7 +42,25 @@ function loadLevel() {
   levelLabel.innerHTML = "Level: " + level
 }
 
-function handleInput() {
+function handleKeyboardInput(key) {
+  if (!event.keyCode) {
+    switch(key) {
+      case "left":
+        event.keyCode = 37
+        break
+      case "up":
+        event.keyCode = 38
+        break
+      case "right":
+        event.keyCode = 39
+        break
+      case "down":
+        event.keyCode = 40
+        break
+      default:
+        return
+    }
+  }
   playerX = levelGrid["player"][0][0]
   playerY = levelGrid["player"][0][1]
   spaces = []

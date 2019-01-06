@@ -5,6 +5,18 @@
   <p id="levelLabel">Level: 1</p>
   <canvas></canvas>
   <h1 onclick="startGame()">Start Game</h1>
+  <div class="controls">
+    <div>
+      <div onclick="handleKeyboardInput('left')" class="left"></div>
+    </div>
+    <div>
+      <div onclick="handleKeyboardInput('up')" class="up"></div>
+      <div onclick="handleKeyboardInput('down')" class="down"></div>
+    </div>
+    <div>
+      <div onclick="handleKeyboardInput('right')" class="right"></div>
+    </div>
+  </div>
   <script src="assets.js"></script>
   <script src="functions.js"></script>
   <script src="app.js"></script>
