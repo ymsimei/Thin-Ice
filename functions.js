@@ -8,6 +8,9 @@ function startGame() {
   //Add Sprites
   loadLevel()
   setInterval(drawSprites, 1000/60)
+
+  //Start Music
+  theme.play();
 }
 
 function loadLevel() {

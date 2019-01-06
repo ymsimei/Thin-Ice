@@ -12,3 +12,8 @@ solvedLabel = document.getElementById("solvedLabel")
 
 //Setup Game Variables
 level = 1
+theme = new Audio("audio/theme.mp3");
+theme.addEventListener('ended', function() {
+    this.currentTime = 0
+    this.play()
+}, false)
