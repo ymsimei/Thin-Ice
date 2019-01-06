@@ -1,117 +1,101 @@
 //Initial Setup
-canvas = document.querySelector("canvas");
-context = canvas.getContext("2d");
-gridSize = 25;
-level = 1;
+canvas = document.querySelector("canvas")
+context = canvas.getContext("2d")
+gridSize = 30
+canvas.height = 15 * gridSize
+canvas.width = 19 * gridSize
 
 //Board Setup
-setupBoard();
+// level = 1
+// grid = {}
+// setupBoard()
 
-function setupBoard() {
-  grid = levels[level.toString()];
-  player = [];
-  blocks = [];
-  tilesUp = [];
-  tilesDown = [];
-  for (y=0;y<grid.length;y++) {
-    for (x=0;x<grid[y].length;x++) {
-      console.log(grid[y][x]);
-      if (grid[y][x] == "B") {
-        blocks.push([x, y]);
-      } else if (grid[y][x] == "T") {
-        tilesUp.push([x, y]);
-      } else if (grid[y][x] == "P") {
-        player.push(x);
-        player.push(y);
-      }
-    }
-  }
-  renderGrid();
-}
+//Load Sprites
+player = new Image()
+player.src = "assets/player.png"
+context.drawImage(player, 10, 10)
 
-function handleInput(event) {
-  //Movement
-  switch(event.keyCode) {
-    case 37:
-      for (i=0; i<blocks.length; i++) {
-        if (player[0] - 1 == blocks[i][0] && player[1] == blocks[i][1]) {
-          return;
-        }
-      }
-      player[0] -= 1;
-      break;
-    case 38:
-      for (i=0; i<blocks.length; i++) {
-        if (player[0] == blocks[i][0] && player[1] - 1 == blocks[i][1]) {
-          return;
-        }
-      }
-      player[1] -= 1;
-      break;
-    case 39:
-      for (i=0; i<blocks.length; i++) {
-        if (player[0] + 1 == blocks[i][0] && player[1] == blocks[i][1]) {
-          return;
-        }
-      }
-      player[0] += 1;
-      break;
-    case 40:
-      for (i=0; i<blocks.length; i++) {
-        if (player[0] == blocks[i][0] && player[1] + 1 == blocks[i][1]) {
-          return;
-        }
-      }
-      player[1] += 1;
-      break;
-    default:
-      return;
-  }
-  //Tile Detection
-  for (i=0; i<tilesUp.length; i++) {
-    if (player[0] == tilesUp[i][0] && player[1] == tilesUp[i][1]) {
-      tile = tilesUp[i];
-      tilesUp.splice(tile, 1);
-      tilesDown.push(tile, 1);
-    }
-  }
-  console.log(tilesUp);
-  //Check Win Condition
-  if (tilesUp == 0) {
-    level += 1;
-    setupBoard();
-  }
-  //Render Grid
-  renderGrid();
-}
-
-function renderGrid() {
-  //Fill Background
-  context.fillStyle = "black";
-  context.fillRect(0, 0, canvas.width, canvas.height);
-
-  //Fill Blocks
-  context.fillStyle = "blue";
-  for (i=0; i<blocks.length; i++) {
-    context.fillRect(blocks[i][0] * gridSize, blocks[i][1] * gridSize, gridSize, gridSize);
-  }
-
-  //Fill Up Tiles
-  context.fillStyle = "red";
-  for (i=0; i<tilesUp.length; i++) {
-    context.fillRect((tilesUp[i][0] * gridSize) + 2, (tilesUp[i][1] * gridSize) + 2, gridSize - 4, gridSize - 4);
-  }
-
-  //Fill Down Tiles
-  context.fillStyle = "green";
-  for (i=0; i<tilesDown.length; i++) {
-    context.fillRect((tilesDown[i][0] * gridSize) + 2, (tilesDown[i][1] * gridSize) + 2, gridSize - 4, gridSize - 4);
-  }
-
-  //Fill Player
-  context.fillStyle = "yellow";
-  context.fillRect((player[0] * gridSize) + 5, (player[1] * gridSize) + 5, gridSize - 10, gridSize - 10);
-}
-
-renderGrid();
-document.addEventListener("keydown", handleInput);
+// setInterval(renderGrid(), 1000)
+// document.addEventListener("keydown", handleInput)
+//
+// function setupBoard() {
+//   grid = {
+//     player: [],
+//     walls: [],
+//     ice: [],
+//     water: [],
+//     goal: [],
+//     blanks: []
+//   }
+//   levelData = levels[level.toString()]
+//   for (y=0;y<levelData.length;y++) {
+//     for (x=0;x<levelData[y].length;x++) {
+//       if (levelData[y][x] == "B") {
+//         grid["walls"].push([x, y])
+//       } else if (levelData[y][x] == "I") {
+//         grid["ice"].push([x, y])
+//       } else if (levelData[y][x] == "G") {
+//         grid["goal"].push([x, y])
+//       } else if (levelData[y][x] == "P") {
+//         grid["player"].push([x, y])
+//       } else {
+//         grid["blanks"].push([x, y])
+//       }
+//     }
+//   }
+// }
+//
+// function handleInput(event) {
+  // //Movement
+  // switch(event.keyCode) {
+  //   case 37:
+  //     grid["water"].push([grid["player"][0][0], grid["player"][0][1]]);
+  //     grid["player"][0][0] -= 1;
+  //     break;
+  //   case 38:
+  //     grid["water"].push([grid["player"][0][0], grid["player"][0][1]]);
+  //     grid["player"][0][1] -= 1;
+  //     break;
+  //   case 39:
+  //     grid["water"].push([grid["player"][0][0], grid["player"][0][1]]);
+  //     grid["player"][0][0] += 1;
+  //     break;
+  //   case 40:
+  //     grid["water"].push([grid["player"][0][0], grid["player"][0][1]]);
+  //     grid["player"][0][1] += 1;
+  //     break;
+  // }
+// }
+//
+// function renderGrid() {
+//   //Fill Blanks
+//   context.fillStyle = "black";
+//   for (i=0; i<grid["blanks"].length; i++) {
+//     context.fillRect(grid["blanks"][i][0] * gridSize, grid["blanks"][i][1] * gridSize, gridSize, gridSize);
+//   }
+//
+//   //Fill Walls
+//   context.fillStyle = "blue";
+//   for (i=0; i<grid["walls"].length; i++) {
+//     context.fillRect(grid["walls"][i][0] * gridSize, grid["walls"][i][1] * gridSize, gridSize, gridSize);
+//   }
+//
+//   //Fill Ice Tiles
+//   context.fillStyle = "red";
+  // for (i=0; i<grid["ice"].length; i++) {
+  //   context.fillRect(grid["ice"][i][0] * gridSize, grid["ice"][i][1] * gridSize, gridSize, gridSize);
+  // }
+//
+//   //Fill Water Tiles
+//   context.fillStyle = "brown";
+//   for (i=0; i<grid["water"].length; i++) {
+//     context.fillRect(grid["water"][i][0] * gridSize, grid["water"][i][1] * gridSize, gridSize, gridSize);
+//   }
+//
+//   Fill Player
+//   context.drawImage(player, grid["player"][0][0] * gridSize, grid["player"][0][1] * gridSize)
+//
+//   //Fill Goal
+//   context.fillStyle = "pink";
+//   context.fillRect(grid["goal"][0][0] * gridSize, grid["goal"][0][1] * gridSize, gridSize, gridSize);
+// }
