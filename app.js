@@ -7,6 +7,8 @@ canvas.width = 19 * gridSize
 
 //Set Label Variables
 levelLabel = document.getElementById("levelLabel")
+iceLabel = document.getElementById("iceLabel")
+solvedLabel = document.getElementById("solvedLabel")
 
 //Setup Game Variables
 level = 1

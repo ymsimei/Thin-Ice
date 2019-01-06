@@ -39,7 +39,8 @@ function loadLevel() {
       }
     }
   }
-  levelLabel.innerHTML = "Level: " + level
+  levelLabel.innerHTML = "LEVEL: " + level
+  solvedLabel.innerHTML = "SOLVED: " + (level - 1)
 }
 
 function handleKeyboardInput(key) {
