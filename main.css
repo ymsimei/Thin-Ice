@@ -17,7 +17,6 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  bottom: 275px;
 }
 
 .puffle {
@@ -28,6 +27,7 @@ body {
 .startButton {
   background-image: url("assets/boton_ui_3_up.png");
   height: 28px;
+  font-family: 'VT323', monospace;
   width: 141px;
   text-align: center;
   font-size: 22px;
@@ -50,33 +50,95 @@ canvas {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 6px 10px;
 }
 
 .info p {
   color: #fff;
-  font-family: sans-serif;
-  font-size: 18px;
+  font-family: 'VT323', monospace;
+  font-size: 22px;
   font-weight: 700;
 }
 
 .controls {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 40px;
   background-color: #333;
   width: 456px;
   padding: 0px 20px;
 }
 
 .left, .up, .down, .right {
-  background-color: #fc0;
   width: 100%;
-  height: 70px;
   margin: 20px 0px;
   border-radius: 10px;
+  overflow: visible;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.up, .down {
+  height: 70px;
+  background-size: 112px;
 }
 
 .left, .right {
-  margin-top: 65px;
+  height: 140px;
+  background-size: 60px;
+}
+
+.up {
+  background-image: url("assets/up1.png");
+}
+
+.up:hover {
+  cursor: pointer;
+  background-image: url("assets/up3.png");
+}
+
+.up:active {
+  cursor: pointer;
+  background-image: url("assets/up2.png");
+}
+
+.left {
+  background-image: url("assets/left1.png");
+}
+
+.left:hover {
+  cursor: pointer;
+  background-image: url("assets/left3.png");
+}
+
+.left:active {
+  cursor: pointer;
+  background-image: url("assets/left2.png");
+}
+
+.right {
+  background-image: url("assets/right1.png");
+}
+
+.right:hover {
+  cursor: pointer;
+  background-image: url("assets/right3.png");
+}
+
+.right:active {
+  cursor: pointer;
+  background-image: url("assets/right2.png");
+}
+
+.down {
+  background-image: url("assets/down1.png");
+}
+
+.down:hover {
+  cursor: pointer;
+  background-image: url("assets/down3.png");
+}
+
+.down:active {
+  cursor: pointer;
+  background-image: url("assets/down2.png");
 }
