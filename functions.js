@@ -133,8 +133,9 @@ function loadLevel() {
 //   }
 // }
 
-function handleKeyboardInput() {
+function handleKeyboardInput(key) {
   document.removeEventListener("keydown", handleKeyboardInput)
+  event.keyCode = key
   direction = event.keyCode
   switch (direction) {
     case 37:
@@ -191,7 +192,6 @@ function movePlayer(direction) {
           levelGrid["player"][0][0] = Math.ceil(levelGrid["player"][0][0])
           // document.addEventListener("keydown", handleKeyboardInput)
         }
-        console.log(levelGrid["player"][0][0])
       }, 1000/60)
       break
     case "right":
@@ -203,7 +203,6 @@ function movePlayer(direction) {
           levelGrid["player"][0][0] = Math.floor(levelGrid["player"][0][0])
           // document.addEventListener("keydown", handleKeyboardInput)
         }
-        console.log(levelGrid["player"][0][0])
       }, 1000/60)
       break
     case "up":
@@ -215,7 +214,6 @@ function movePlayer(direction) {
           levelGrid["player"][0][1] = Math.ceil(levelGrid["player"][0][1])
           // document.addEventListener("keydown", handleKeyboardInput)
         }
-        console.log(levelGrid["player"][0][1])
       }, 1000/60)
       break
     case "down":
@@ -227,7 +225,6 @@ function movePlayer(direction) {
           // document.addEventListener("keydown", handleKeyboardInput)
         }
         count += 1
-        console.log(levelGrid["player"][0][1])
       }, 1000/60)
       break
   }
