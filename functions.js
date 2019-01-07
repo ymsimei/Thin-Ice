@@ -1,7 +1,8 @@
 function startGame() {
   //Remove Start Button
-  document.getElementById("start").parentNode.removeChild(document.getElementById("start"))
-
+  start = document.getElementById("start")
+  start.parentNode.removeChild(start)
+  startBtn.parentNode.removeChild(startBtn)
   //Add Inputs
   document.addEventListener("keydown", handleKeyboardInput)
 
@@ -138,22 +139,22 @@ function drawSprites() {
 
   //Draw Sprites
   for (i=0;i<levelGrid["ice"].length;i++) {
-    context.drawImage(iceSprite, 0, 0, gridSize, gridSize, levelGrid["ice"][i][0] * gridSize, levelGrid["ice"][i][1] * gridSize, gridSize, gridSize)
+    context.drawImage(iceSprite, 0, 0, 24, 24, levelGrid["ice"][i][0] * gridSize, levelGrid["ice"][i][1] * gridSize, gridSize, gridSize)
   }
   for (i=0;i<levelGrid["walls"].length;i++) {
-    context.drawImage(wallSprite, 0, 0, gridSize, gridSize, levelGrid["walls"][i][0] * gridSize, levelGrid["walls"][i][1] * gridSize, gridSize, gridSize)
+    context.drawImage(wallSprite, 0, 0, 24, 24, levelGrid["walls"][i][0] * gridSize, levelGrid["walls"][i][1] * gridSize, gridSize, gridSize)
   }
   for (i=0;i<levelGrid["hardIce"].length;i++) {
-    context.drawImage(hardIceSprite, 0, 0, gridSize, gridSize, levelGrid["hardIce"][i][0] * gridSize, levelGrid["hardIce"][i][1] * gridSize, gridSize, gridSize)
+    context.drawImage(hardIceSprite, 0, 0, 24, 24, levelGrid["hardIce"][i][0] * gridSize, levelGrid["hardIce"][i][1] * gridSize, gridSize, gridSize)
   }
   for (i=0;i<levelGrid["water"].length;i++) {
-    context.drawImage(waterSprite, (totalFrames % 37) * 24, 0, gridSize, gridSize, levelGrid["water"][i][0] * gridSize, levelGrid["water"][i][1] * gridSize, gridSize, gridSize)
+    context.drawImage(waterSprite, (totalFrames % 37) * 24, 0, 24, 24, levelGrid["water"][i][0] * gridSize, levelGrid["water"][i][1] * gridSize, gridSize, gridSize)
   }
   for (i=0;i<levelGrid["goal"].length;i++) {
-    context.drawImage(goalSprite, 0, 0, gridSize, gridSize, levelGrid["goal"][i][0] * gridSize, levelGrid["goal"][i][1] * gridSize, gridSize, gridSize)
+    context.drawImage(goalSprite, 0, 0, 24, 24, levelGrid["goal"][i][0] * gridSize, levelGrid["goal"][i][1] * gridSize, gridSize, gridSize)
   }
   for (i=0;i<levelGrid["blanks"].length;i++) {
-    context.drawImage(blankSprite, 0, 0, gridSize, gridSize, levelGrid["blanks"][i][0] * gridSize, levelGrid["blanks"][i][1] * gridSize, gridSize, gridSize)
+    context.drawImage(blankSprite, 0, 0, 24, 24, levelGrid["blanks"][i][0] * gridSize, levelGrid["blanks"][i][1] * gridSize, gridSize, gridSize)
   }
   context.drawImage(playerSprite, (totalFrames % 7) * 24, 0, 24, 24, levelGrid["player"][0][0] * gridSize, levelGrid["player"][0][1] * gridSize, gridSize, gridSize)
 }

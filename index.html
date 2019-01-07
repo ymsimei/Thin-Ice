@@ -1,32 +1,33 @@
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
   <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
   <link rel="stylesheet" href="main.css"></link>
 </head>
 <body>
-  <div class="info">
-    <p id="levelLabel">LEVEL: 1</p>
-    <p id="iceLabel"></p>
-    <p id="solvedLabel">SOLVED: 0</p>
-  </div>
-  <canvas></canvas>
-  <div id="start">
-    <img src="assets/title.png">
-    <img class="puffle" src="assets/puffle_on_ice.png">
-    <h1 class="startButton" onclick="startGame()">START</h1>
-  </div>
-  <div class="controls">
-    <div>
-      <div onclick="handleKeyboardInput('left')" class="left"></div>
+  <div class="flex">
+    <div id="info">
+      <p id="levelLabel">LEVEL: 1</p>
+      <p id="iceLabel"></p>
+      <p id="solvedLabel">SOLVED: 0</p>
     </div>
-    <div>
-      <div onclick="handleKeyboardInput('up')" class="up"></div>
-      <div onclick="handleKeyboardInput('down')" class="down"></div>
+    <canvas></canvas>
+    <div id="start">
+      <img style="display:none" src="assets/title.png">
+      <img style="display:none" class="puffle" src="assets/puffle_on_ice.png">
     </div>
-    <div>
-      <div onclick="handleKeyboardInput('right')" class="right"></div>
+    <div id="controls">
+      <div>
+        <div onclick="handleKeyboardInput('left')" class="left"></div>
+      </div>
+      <div>
+        <div onclick="handleKeyboardInput('up')" class="up"></div>
+        <div onclick="handleKeyboardInput('down')" class="down"></div>
+      </div>
+      <div>
+        <div onclick="handleKeyboardInput('right')" class="right"></div>
+      </div>
     </div>
   </div>
+  <h1 id="startButton" onclick="startGame()">START</h1>
   <script src="assets.js"></script>
   <script src="functions.js"></script>
   <script src="app.js"></script>

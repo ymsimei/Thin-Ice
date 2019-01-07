@@ -13,6 +13,11 @@ blankSprite.src = "assets/blank.png"
 hardIceSprite = new Image()
 hardIceSprite.src = "assets/hard.png"
 
+titleSprite = new Image()
+titleSprite.src = "assets/title.png"
+puffleSprite = new Image()
+puffleSprite.src = "assets/puffle_on_ice.png"
+
 levels = {
   "0": [
     "BBBBBBBBBBBBBBBBBBB",
