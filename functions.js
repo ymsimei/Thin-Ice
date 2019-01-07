@@ -1,16 +1,21 @@
 function startGame() {
   //Remove Start Button
-  document.querySelector("h1").parentNode.removeChild(document.querySelector("h1"))
+  document.getElementById("start").parentNode.removeChild(document.getElementById("start"))
 
   //Add Inputs
   document.addEventListener("keydown", handleKeyboardInput)
 
   //Add Sprites
   loadLevel()
-  setInterval(drawSprites, 1000/60)
+  setInterval(gameLoop, 1000/30)
 
   //Start Music
-  theme.play();
+  theme.play()
+}
+
+function gameLoop() {
+  drawSprites()
+  totalFrames += 1
 }
 
 function loadLevel() {
@@ -117,13 +122,11 @@ function handleKeyboardInput(key) {
 function meltIce() {
   n = searchForArray(levelGrid["ice"], [playerX, playerY])
   if (n >= 0) {
-    console.log("melted")
     levelGrid["ice"].splice(n, 1)
     levelGrid["water"].push([playerX, playerY])
   }
   n = searchForArray(levelGrid["hardIce"], [playerX, playerY])
   if (n >= 0) {
-    console.log("thawed")
     levelGrid["hardIce"].splice(n, 1)
     levelGrid["ice"].push([playerX, playerY])
   }
@@ -144,7 +147,7 @@ function drawSprites() {
     context.drawImage(hardIceSprite, 0, 0, gridSize, gridSize, levelGrid["hardIce"][i][0] * gridSize, levelGrid["hardIce"][i][1] * gridSize, gridSize, gridSize)
   }
   for (i=0;i<levelGrid["water"].length;i++) {
-    context.drawImage(waterSprite, frame * 32, 0, gridSize, gridSize, levelGrid["water"][i][0] * gridSize, levelGrid["water"][i][1] * gridSize, gridSize, gridSize)
+    context.drawImage(waterSprite, (totalFrames % 37) * 24, 0, gridSize, gridSize, levelGrid["water"][i][0] * gridSize, levelGrid["water"][i][1] * gridSize, gridSize, gridSize)
   }
   for (i=0;i<levelGrid["goal"].length;i++) {
     context.drawImage(goalSprite, 0, 0, gridSize, gridSize, levelGrid["goal"][i][0] * gridSize, levelGrid["goal"][i][1] * gridSize, gridSize, gridSize)
@@ -152,15 +155,7 @@ function drawSprites() {
   for (i=0;i<levelGrid["blanks"].length;i++) {
     context.drawImage(blankSprite, 0, 0, gridSize, gridSize, levelGrid["blanks"][i][0] * gridSize, levelGrid["blanks"][i][1] * gridSize, gridSize, gridSize)
   }
-  context.drawImage(playerSprite, frame * 32, 0, gridSize, gridSize, levelGrid["player"][0][0] * gridSize, levelGrid["player"][0][1] * gridSize, gridSize, gridSize)
-
-  //Update Frames
-  if (frameCount == 3) {
-    frame = (frame == 8) ? 1 : frame + 1
-    frameCount = 0
-  } else {
-    frameCount += 1
-  }
+  context.drawImage(playerSprite, (totalFrames % 7) * 24, 0, 24, 24, levelGrid["player"][0][0] * gridSize, levelGrid["player"][0][1] * gridSize, gridSize, gridSize)
 }
 
 function searchForArray(haystack, needle){

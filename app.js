@@ -1,7 +1,7 @@
 // Initial Canvas Setup
 canvas = document.querySelector("canvas")
 context = canvas.getContext("2d")
-gridSize = 32
+gridSize = 24
 canvas.height = 15 * gridSize
 canvas.width = 19 * gridSize
 
@@ -12,6 +12,7 @@ solvedLabel = document.getElementById("solvedLabel")
 
 //Setup Game Variables
 level = 1
+totalFrames = 0
 theme = new Audio("audio/theme.mp3");
 theme.addEventListener('ended', function() {
     this.currentTime = 0

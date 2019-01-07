@@ -1,6 +1,3 @@
-frameCount = 0
-frame = 1
-
 playerSprite = new Image()
 playerSprite.src = "assets/player.png"
 iceSprite = new Image()

@@ -11,26 +11,42 @@ body {
   justify-content: center;
 }
 
-h1 {
+#start {
   position: absolute;
-  font-family: sans-serif;
-  color: #000;
-  background-color: #fc0;
-  padding: 10px;
-  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  bottom: 275px;
 }
 
-h1:hover {
+.puffle {
+  height: 160px;
+  margin: 20px;
+}
+
+.startButton {
+  background-image: url("assets/boton_ui_3_up.png");
+  height: 28px;
+  width: 141px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+}
+
+.startButton:hover {
+  background-image: url("assets/boton_ui_3_down.png");
   cursor: pointer;
 }
 
 canvas {
-  background-color: black;
+  background-color: #dbf3ff;
 }
 
 .info {
   background-color: #333;
-  width: 608px;
+  width: 456px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -49,7 +65,7 @@ canvas {
   grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 40px;
   background-color: #333;
-  width: 608px;
+  width: 456px;
   padding: 0px 20px;
 }
 
