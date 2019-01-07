@@ -165,7 +165,11 @@ function handleKeyboardInput(key) {
       break
     case "goal":
       meltIce()
-      level += 1
+      if (level < Object.keys(levels).length - 1) {
+        level += 1
+      } else {
+        level = 0
+      }
       loadLevel()
       addScore(10)
       document.addEventListener("keydown", handleKeyboardInput)

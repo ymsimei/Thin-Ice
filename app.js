@@ -25,7 +25,7 @@ resetButton = document.getElementById("resetButton")
 scoreLabel = document.getElementById("scoreLabel")
 
 //Setup Game Variables
-level = 1
+level = 9
 score = 0
 totalFrames = 0
 theme = new Audio("audio/theme.mp3");
