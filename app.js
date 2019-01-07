@@ -8,8 +8,10 @@ canvas.width = 19 * gridSize
 //Other HUD Sizing
 info = document.getElementById("info")
 controls = document.getElementById("controls")
+actions = document.getElementById("actions")
 info.style.width = (19 * gridSize) + "px"
 controls.style.width = (19 * gridSize) + "px"
+actions.style.width = (19 * gridSize) + "px"
 
 startBtn = document.getElementById("startButton")
 startBtn.style.top = 35 + canvas.height - (canvas.height / 4)

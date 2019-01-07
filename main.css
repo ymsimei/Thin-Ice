@@ -24,7 +24,7 @@
   margin: 20px;
 }
 
-#startButton {
+h1 {
   background-image: url("assets/boton_ui_3_up.png");
   height: 28px;
   font-family: 'VT323', monospace;
@@ -33,10 +33,13 @@
   font-size: 22px;
   font-weight: 700;
   color: white;
+}
+
+#startButton {
   position: absolute;
 }
 
-#startButton:hover {
+h1:hover {
   background-image: url("assets/boton_ui_3_down.png");
   cursor: pointer;
 }
@@ -45,16 +48,16 @@ canvas {
   background-color: #dbf3ff;
 }
 
-#info {
-  background-color: #333;
+#info, #actions {
+  background-color: #dbf3ff;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 6px 10px;
 }
 
-#info p {
-  color: #fff;
+p {
+  color: #0064d3;
   font-family: 'VT323', monospace;
   font-size: 22px;
   font-weight: 700;

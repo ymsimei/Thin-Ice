@@ -1,7 +1,5 @@
 function startGame() {
   //Remove Start Button
-  start = document.getElementById("start")
-  start.parentNode.removeChild(start)
   startBtn.parentNode.removeChild(startBtn)
   //Add Inputs
   document.addEventListener("keydown", handleKeyboardInput)
@@ -74,7 +72,11 @@ function handleKeyboardInput(key) {
   playerX = levelGrid["player"][0][0]
   playerY = levelGrid["player"][0][1]
   spaces = []
-  spaces = levelGrid["ice"].concat(levelGrid["goal"]).concat(levelGrid["hardIce"])
+  if (levelGrid["ice"].length == 1) {
+    spaces = levelGrid["ice"].concat(levelGrid["goal"]).concat(levelGrid["hardIce"])
+  } else {
+    spaces = levelGrid["ice"].concat(levelGrid["hardIce"])
+  }
   //Movement
   switch(event.keyCode) {
     case 37:
