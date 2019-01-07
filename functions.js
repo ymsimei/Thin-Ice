@@ -1,6 +1,11 @@
 function startGame() {
   //Remove Start Button
   startBtn.parentNode.removeChild(startBtn)
+  levelLabel.style.opacity = 1
+  iceLabel.style.opacity = 1
+  solvedLabel.style.opacity = 1
+  resetButton.style.opacity = 1
+
   //Add Inputs
   document.addEventListener("keydown", handleKeyboardInput)
 
