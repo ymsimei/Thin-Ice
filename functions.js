@@ -34,7 +34,9 @@ function loadLevel() {
     goal: [],
     blanks: [],
     keys: [],
-    doors: []
+    doors: [],
+    nests: [],
+    blocks: []
   }
   levelData = levels[level.toString()]
   for (y=0;y<levelData.length;y++) {
@@ -51,6 +53,10 @@ function loadLevel() {
         levelGrid["doors"].push([x, y])
       } else if (levelData[y][x] == "K") {
         levelGrid["keys"].push([x, y])
+      } else if (levelData[y][x] == "N") {
+        levelGrid["nests"].push([x, y])
+      } else if (levelData[y][x] == "O") {
+        levelGrid["blocks"].push([x, y])
       } else if (levelData[y][x] == "P") {
         levelGrid["player"].push([x, y])
         levelGrid["ice"].push([x, y])
@@ -143,6 +149,67 @@ function handleKeyboardInput(key) {
       }
       document.addEventListener("keydown", handleKeyboardInput)
       break
+    case "blocks":
+      // Get the blocks index in the array
+      switch (direction) {
+        case "left":
+          if (searchForArray(levelGrid["ice"], [levelGrid["player"][0][0] - 2, levelGrid["player"][0][1]]) >= 0) {
+            blockIndex = searchForArray(levelGrid["blocks"], [levelGrid["player"][0][0] - 1, levelGrid["player"][0][1]])
+            iceIndex = searchForArray(levelGrid["ice"], [levelGrid["blocks"][blockIndex][0] - 1, levelGrid["blocks"][blockIndex][1]])
+            levelGrid["ice"].splice(iceIndex, 1)
+            levelGrid["ice"].push([levelGrid["player"][0][0] - 1, levelGrid["player"][0][1]])
+          } else if (searchForArray(levelGrid["nests"], [(levelGrid["player"][0][0]) - 2, levelGrid["player"][0][1]]) >= 0) {
+            blockIndex = searchForArray(levelGrid["blocks"], [levelGrid["player"][0][0] - 1, levelGrid["player"][0][1]])
+            levelGrid["ice"].push([levelGrid["player"][0][0] - 1, levelGrid["player"][0][1]])
+          } else {
+            blockIndex = -1
+          }
+          break
+        case "right":
+          if (searchForArray(levelGrid["ice"], [levelGrid["player"][0][0] + 2, levelGrid["player"][0][1]]) >= 0) {
+            blockIndex = searchForArray(levelGrid["blocks"], [levelGrid["player"][0][0] + 1, levelGrid["player"][0][1]])
+            iceIndex = searchForArray(levelGrid["ice"], [levelGrid["blocks"][blockIndex][0] + 1, levelGrid["blocks"][blockIndex][1]])
+            levelGrid["ice"].splice(iceIndex, 1)
+            levelGrid["ice"].push([levelGrid["player"][0][0] + 1, levelGrid["player"][0][1]])
+          } else if (searchForArray(levelGrid["nests"], [(levelGrid["player"][0][0]) + 2, levelGrid["player"][0][1]]) >= 0) {
+            blockIndex = searchForArray(levelGrid["blocks"], [levelGrid["player"][0][0] + 1, levelGrid["player"][0][1]])
+            levelGrid["ice"].push([levelGrid["player"][0][0] + 1, levelGrid["player"][0][1]])
+          } else {
+            blockIndex = -1
+          }
+          break
+        case "up":
+          if (searchForArray(levelGrid["ice"], [levelGrid["player"][0][0], levelGrid["player"][0][1] - 2]) >= 0) {
+            blockIndex = searchForArray(levelGrid["blocks"], [levelGrid["player"][0][0], levelGrid["player"][0][1] - 1])
+            iceIndex = searchForArray(levelGrid["ice"], [levelGrid["blocks"][blockIndex][0], levelGrid["blocks"][blockIndex][1] - 1])
+            levelGrid["ice"].splice(iceIndex, 1)
+            levelGrid["ice"].push([levelGrid["player"][0][0], levelGrid["player"][0][1] - 1])
+          } else if (searchForArray(levelGrid["nests"], [(levelGrid["player"][0][0]), levelGrid["player"][0][1] - 2]) >= 0) {
+            blockIndex = searchForArray(levelGrid["blocks"], [levelGrid["player"][0][0], levelGrid["player"][0][1] - 1])
+            levelGrid["ice"].push([levelGrid["player"][0][0], levelGrid["player"][0][1] - 1])
+          } else {
+            blockIndex = -1
+          }
+          break
+        case "down":
+          if (searchForArray(levelGrid["ice"], [levelGrid["player"][0][0], levelGrid["player"][0][1] + 2]) >= 0) {
+            blockIndex = searchForArray(levelGrid["blocks"], [levelGrid["player"][0][0], levelGrid["player"][0][1] + 1])
+            iceIndex = searchForArray(levelGrid["ice"], [levelGrid["blocks"][blockIndex][0], levelGrid["blocks"][blockIndex][1] + 1])
+            levelGrid["ice"].splice(iceIndex, 1)
+            levelGrid["ice"].push([levelGrid["player"][0][0], levelGrid["player"][0][1] + 1])
+          } else if (searchForArray(levelGrid["nests"], [(levelGrid["player"][0][0]), levelGrid["player"][0][1] + 2]) >= 0) {
+            blockIndex = searchForArray(levelGrid["blocks"], [levelGrid["player"][0][0], levelGrid["player"][0][1] + 1])
+            levelGrid["ice"].push([levelGrid["player"][0][0], levelGrid["player"][0][1] + 1])
+          } else {
+            blockIndex = -1
+          }
+          break
+      }
+      if (blockIndex >= 0) {
+        moveBlock(direction, blockIndex)
+      }
+      document.addEventListener("keydown", handleKeyboardInput)
+      break
     default:
       document.addEventListener("keydown", handleKeyboardInput)
   }
@@ -170,6 +237,52 @@ function takeKey(direction) {
       p = searchForArray(levelGrid["keys"], [levelGrid["player"][0][0], levelGrid["player"][0][1] + 1])
       levelGrid["keys"].splice(p, 1)
       levelGrid["ice"].push([levelGrid["player"][0][0], levelGrid["player"][0][1] + 1])
+      break
+  }
+}
+
+function moveBlock(direction, index) {
+  count = 0
+  switch (direction) {
+    case "left":
+      var animate = setInterval(function() {
+        count += 1
+        levelGrid["blocks"][index][0] -= 0.1
+        if (count == 11) {
+          clearInterval(animate)
+          levelGrid["blocks"][index][0] = Math.ceil(levelGrid["blocks"][index][0])
+        }
+      }, 1000/60)
+      break
+    case "right":
+      var animate = setInterval(function() {
+        count += 1
+        levelGrid["blocks"][0][0] += 0.1
+        if (count == 11) {
+          clearInterval(animate)
+          levelGrid["blocks"][index][0] = Math.floor(levelGrid["blocks"][index][0])
+        }
+      }, 1000/60)
+      break
+    case "up":
+      var animate = setInterval(function() {
+        count += 1
+        levelGrid["blocks"][index][1] -= 0.1
+        if (count == 11) {
+          clearInterval(animate)
+          levelGrid["blocks"][index][1] = Math.ceil(levelGrid["blocks"][index][1])
+        }
+      }, 1000/60)
+      break
+    case "down":
+      var animate = setInterval(function() {
+        levelGrid["blocks"][0][1] += 0.1
+        if (count == 11) {
+          clearInterval(animate)
+          levelGrid["blocks"][index][1] = Math.floor(levelGrid["blocks"][index][1])
+        }
+        count += 1
+      }, 1000/60)
       break
   }
 }
@@ -295,6 +408,12 @@ function drawSprites() {
   }
   for (i=0;i<levelGrid["hardIce"].length;i++) {
     context.drawImage(hardIceSprite, 0, 0, 24, 24, levelGrid["hardIce"][i][0] * gridSize, levelGrid["hardIce"][i][1] * gridSize, gridSize, gridSize)
+  }
+  for (i=0;i<levelGrid["nests"].length;i++) {
+    context.drawImage(nestSprite, 0, 0, 24, 24, levelGrid["nests"][i][0] * gridSize, levelGrid["nests"][i][1] * gridSize, gridSize, gridSize)
+  }
+  for (i=0;i<levelGrid["blocks"].length;i++) {
+    context.drawImage(blockSprite, 0, 0, 24, 24, levelGrid["blocks"][i][0] * gridSize, levelGrid["blocks"][i][1] * gridSize, gridSize, gridSize)
   }
   for (i=0;i<levelGrid["water"].length;i++) {
     context.drawImage(waterSprite, (totalFrames % 37) * 24, 0, 24, 24, levelGrid["water"][i][0] * gridSize, levelGrid["water"][i][1] * gridSize, gridSize, gridSize)

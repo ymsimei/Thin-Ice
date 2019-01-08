@@ -16,6 +16,10 @@ keySprite = new Image()
 keySprite.src = "assets/key.png"
 doorSprite = new Image()
 doorSprite.src = "assets/door.png"
+blockSprite = new Image()
+blockSprite.src = "assets/block.png"
+nestSprite = new Image()
+nestSprite.src = "assets/nest.png"
 
 titleSprite = new Image()
 titleSprite.src = "assets/title.png"
@@ -243,5 +247,22 @@ levels = {
     "BIHHIBBBBBBBBBBBBBB",
     "BIIIKBXXXXXXXXXXXXX",
     "BBBBBBXXXXXXXXXXXXX"
+  ],
+  "13": [
+    "XXXXXXXXXXXXXXXXXXX",
+    "XXXXXXXXXXXXXXXXXXX",
+    "XXXXXXXXXXXXXXXXXXX",
+    "XXXXXXXXXXXXXBBBBXX",
+    "XXXXXBBBBBBBBBIIBXX",
+    "XXXXXBPIOIIIIIIIBXX",
+    "XXXXXBBBBBBBBBBIBXX",
+    "XXXXXXXXXXXXXXBIBBX",
+    "XXXXXXXXXXXXXXBIGBX",
+    "XXXXXXXXXXXXXXBNBBX",
+    "XXXXXXXXXXXXXXBBBXX",
+    "XXXXXXXXXXXXXXXXXXX",
+    "XXXXXXXXXXXXXXXXXXX",
+    "XXXXXXXXXXXXXXXXXXX",
+    "XXXXXXXXXXXXXXXXXXX"
   ]
 }
