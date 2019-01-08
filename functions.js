@@ -24,7 +24,7 @@ function gameLoop() {
 }
 
 function loadLevel() {
-  inventory = []
+  inventory = 0
   levelGrid = {
     player: [],
     walls: [],
@@ -33,7 +33,8 @@ function loadLevel() {
     water: [],
     goal: [],
     blanks: [],
-    keys: []
+    keys: [],
+    doors: []
   }
   levelData = levels[level.toString()]
   for (y=0;y<levelData.length;y++) {
@@ -46,9 +47,10 @@ function loadLevel() {
         levelGrid["goal"].push([x, y])
       } else if (levelData[y][x] == "H") {
         levelGrid["hardIce"].push([x, y])
+      } else if (levelData[y][x] == "D") {
+        levelGrid["doors"].push([x, y])
       } else if (levelData[y][x] == "K") {
         levelGrid["keys"].push([x, y])
-        levelGrid["ice"].push([x, y])
       } else if (levelData[y][x] == "P") {
         levelGrid["player"].push([x, y])
         levelGrid["ice"].push([x, y])
@@ -60,78 +62,6 @@ function loadLevel() {
   levelLabel.innerHTML = "LEVEL: " + level
   solvedLabel.innerHTML = "SOLVED: " + (level - 1)
 }
-
-// function handleKeyboardInput(key) {
-//   if (!event.keyCode) {
-//     switch(key) {
-//       case "left":
-//         event.keyCode = 37
-//         break
-//       case "up":
-//         event.keyCode = 38
-//         break
-//       case "right":
-//         event.keyCode = 39
-//         break
-//       case "down":
-//         event.keyCode = 40
-//         break
-//       default:
-//         return
-//     }
-//   }
-//   playerX = levelGrid["player"][0][0]
-//   playerY = levelGrid["player"][0][1]
-//   spaces = []
-//   if (levelGrid["ice"].length == 1) {
-//     spaces = levelGrid["ice"].concat(levelGrid["goal"]).concat(levelGrid["hardIce"])
-//   } else {
-//     spaces = levelGrid["ice"].concat(levelGrid["hardIce"])
-//   }
-//   //Movement
-//   switch(event.keyCode) {
-//     case 37:
-//       if (searchForArray(spaces, [playerX - 1, playerY]) >= 0) {
-//         meltIce()
-//         levelGrid["player"][0][0] -= 1
-//         break
-//       }
-//       break
-//     case 38:
-//       if (searchForArray(spaces, [playerX, playerY - 1]) >= 0) {
-//         meltIce()
-//         levelGrid["player"][0][1] -= 1
-//         break
-//       }
-//       break
-//     case 39:
-//       if (searchForArray(spaces, [playerX + 1, playerY]) >= 0) {
-//         meltIce()
-//         levelGrid["player"][0][0] += 1
-//         break
-//       }
-//       break
-//     case 40:
-//       if (searchForArray(spaces, [playerX, playerY + 1]) >= 0) {
-//         meltIce()
-//         levelGrid["player"][0][1] += 1
-//         break
-//       }
-//       break
-//     default:
-//       return
-//   }
-//   // Check Win
-//   if (searchForArray(levelGrid["goal"], [playerX, playerY]) && levelGrid["ice"].length == 0) {
-//     if (level < Object.keys(levels).length - 1) {
-//       level += 1
-//       loadLevel()
-//     } else {
-//       level = 0
-//       loadLevel()
-//     }
-//   }
-// }
 
 function handleKeyboardInput(key) {
   document.removeEventListener("keydown", handleKeyboardInput)
@@ -174,8 +104,73 @@ function handleKeyboardInput(key) {
       addScore(10)
       document.addEventListener("keydown", handleKeyboardInput)
       break
+    case "keys":
+      meltIce()
+      takeKey(direction)
+      movePlayer(direction)
+      addScore(1)
+      break
+    case "doors":
+      if (inventory > 0) {
+        inventory -= 1
+        switch (direction) {
+          case "left":
+            doorIndex = searchForArray(levelGrid["doors"], [levelGrid["player"][0][0] - 1, levelGrid["player"][0][1]])
+            levelGrid["doors"].splice(doorIndex, 1)
+            levelGrid["ice"].push([levelGrid["player"][0][0] - 1, levelGrid["player"][0][1]])
+            document.addEventListener("keydown", handleKeyboardInput)
+            break
+          case "right":
+            doorIndex = searchForArray(levelGrid["doors"], [levelGrid["player"][0][0] + 1, levelGrid["player"][0][1]])
+            levelGrid["doors"].splice(doorIndex, 1)
+            levelGrid["ice"].push([levelGrid["player"][0][0] + 1, levelGrid["player"][0][1]])
+            document.addEventListener("keydown", handleKeyboardInput)
+            break
+          case "up":
+            doorIndex = searchForArray(levelGrid["doors"], [levelGrid["player"][0][0], levelGrid["player"][0][1] - 1])
+            levelGrid["doors"].splice(doorIndex, 1)
+            levelGrid["ice"].push([levelGrid["player"][0][0], levelGrid["player"][0][1] - 1])
+            document.addEventListener("keydown", handleKeyboardInput)
+            break
+          case "down":
+            doorIndex = searchForArray(levelGrid["doors"], [levelGrid["player"][0][0], levelGrid["player"][0][1] + 1])
+            levelGrid["doors"].splice(doorIndex, 1)
+            levelGrid["ice"].push([levelGrid["player"][0][0], levelGrid["player"][0][1] + 1])
+            document.addEventListener("keydown", handleKeyboardInput)
+            break
+        }
+        break
+      }
+      document.addEventListener("keydown", handleKeyboardInput)
+      break
     default:
       document.addEventListener("keydown", handleKeyboardInput)
+  }
+}
+
+function takeKey(direction) {
+  inventory += 1
+  switch (direction) {
+    case "left":
+      p = searchForArray(levelGrid["keys"], [levelGrid["player"][0][0] - 1, levelGrid["player"][0][1]])
+      levelGrid["keys"].splice(p, 1)
+      levelGrid["ice"].push([levelGrid["player"][0][0] - 1, levelGrid["player"][0][1]])
+      break
+    case "right":
+      p = searchForArray(levelGrid["keys"], [levelGrid["player"][0][0] + 1, levelGrid["player"][0][1]])
+      levelGrid["keys"].splice(p, 1)
+      levelGrid["ice"].push([levelGrid["player"][0][0] + 1, levelGrid["player"][0][1]])
+      break
+    case "up":
+      p = searchForArray(levelGrid["keys"], [levelGrid["player"][0][0], levelGrid["player"][0][1] - 1])
+      levelGrid["keys"].splice(p, 1)
+      levelGrid["ice"].push([levelGrid["player"][0][0], levelGrid["player"][0][1] - 1])
+      break
+    case "down":
+      p = searchForArray(levelGrid["keys"], [levelGrid["player"][0][0], levelGrid["player"][0][1] + 1])
+      levelGrid["keys"].splice(p, 1)
+      levelGrid["ice"].push([levelGrid["player"][0][0], levelGrid["player"][0][1] + 1])
+      break
   }
 }
 
@@ -194,7 +189,6 @@ function movePlayer(direction) {
         if (count == 11) {
           clearInterval(animate)
           levelGrid["player"][0][0] = Math.ceil(levelGrid["player"][0][0])
-          // document.addEventListener("keydown", handleKeyboardInput)
         }
       }, 1000/60)
       break
@@ -205,7 +199,6 @@ function movePlayer(direction) {
         if (count == 11) {
           clearInterval(animate)
           levelGrid["player"][0][0] = Math.floor(levelGrid["player"][0][0])
-          // document.addEventListener("keydown", handleKeyboardInput)
         }
       }, 1000/60)
       break
@@ -216,7 +209,6 @@ function movePlayer(direction) {
         if (count == 11) {
           clearInterval(animate)
           levelGrid["player"][0][1] = Math.ceil(levelGrid["player"][0][1])
-          // document.addEventListener("keydown", handleKeyboardInput)
         }
       }, 1000/60)
       break
@@ -226,13 +218,16 @@ function movePlayer(direction) {
         if (count == 11) {
           clearInterval(animate)
           levelGrid["player"][0][1] = Math.floor(levelGrid["player"][0][1])
-          // document.addEventListener("keydown", handleKeyboardInput)
         }
         count += 1
       }, 1000/60)
       break
   }
-  setTimeout(function() {document.addEventListener("keydown", handleKeyboardInput)}, 100);
+  setTimeout(finishedMove(direction), 100);
+}
+
+function finishedMove(direction) {
+  document.addEventListener("keydown", handleKeyboardInput)
 }
 
 function checkTile(direction) {
@@ -303,6 +298,9 @@ function drawSprites() {
   }
   for (i=0;i<levelGrid["water"].length;i++) {
     context.drawImage(waterSprite, (totalFrames % 37) * 24, 0, 24, 24, levelGrid["water"][i][0] * gridSize, levelGrid["water"][i][1] * gridSize, gridSize, gridSize)
+  }
+  for (i=0;i<levelGrid["doors"].length;i++) {
+    context.drawImage(doorSprite, 0, 0, 24, 24, levelGrid["doors"][i][0] * gridSize, levelGrid["doors"][i][1] * gridSize, gridSize, gridSize)
   }
   for (i=0;i<levelGrid["keys"].length;i++) {
     context.drawImage(keySprite, (totalFrames % 16) * 24, 0, 24, 24, levelGrid["keys"][i][0] * gridSize, levelGrid["keys"][i][1] * gridSize, gridSize, gridSize)
