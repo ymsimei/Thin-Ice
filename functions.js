@@ -105,6 +105,7 @@ function handleKeyboardInput(key) {
         level += 1
       } else {
         level = 0
+        alert("That's all so far!")
       }
       loadLevel()
       addScore(10)

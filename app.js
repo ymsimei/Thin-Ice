@@ -25,7 +25,7 @@ resetButton = document.getElementById("resetButton")
 scoreLabel = document.getElementById("scoreLabel")
 
 //Setup Game Variables
-level = 13
+level = 1
 score = 0
 totalFrames = 0
 theme = new Audio("audio/theme.mp3");
@@ -37,5 +37,3 @@ theme.addEventListener('ended', function() {
 //Start HUD
 context.drawImage(puffleSprite, (canvas.width/2)-(canvas.width/3.5), (canvas.height/2)-(((canvas.width/2)*0.6)/2), canvas.width/1.5, (canvas.width/2)*0.8)
 context.drawImage(titleSprite, (canvas.width/2)-(286/2), (canvas.height/4)-(66), 286, 66)
-
-startGame()
