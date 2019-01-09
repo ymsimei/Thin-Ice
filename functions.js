@@ -15,7 +15,7 @@ function startGame() {
   setInterval(gameLoop, 1000/30)
 
   //Start Music
-  // theme.play()
+  theme.play()
 }
 
 function gameLoop() {
