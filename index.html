@@ -41,6 +41,13 @@
   <h1 id="startButton" onclick="startGame()">START</h1>
   <img style="display:none" src="assets/title.png">
   <img style="display:none" class="puffle" src="assets/puffle_on_ice.png">
+  <script>
+  if('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .register('sw.js')
+      .then(function() { console.log("Service Worker Registered"); });
+  }
+  </script>
   <script src="assets.js"></script>
   <script src="functions.js"></script>
   <script src="app.js"></script>
